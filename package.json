@@ -19,8 +19,10 @@
   "homepage": "https://github.com/scottiedog45/leev-api#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
-    "mongoose": "^4.13.9"
+    "mongoose": "^4.13.9",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
