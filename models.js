@@ -29,7 +29,8 @@ leevServiceSchema.methods.apiRepr = function() {
   return {
     category: this.category,
     dateTime: this.dateTime,
-    people: this.people
+    people: this.people,
+    id: this.id
   };
 }
 
