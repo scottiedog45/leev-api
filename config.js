@@ -5,3 +5,5 @@ exports.TEST_DATABASE_URL=
   'mongodb://secondtestdatabase:secondtestdatabase@ds255347.mlab.com:55347/secondtestdatabase'
 
 exports.PORT = process.env.PORT || 8000;
+
+exports.CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
