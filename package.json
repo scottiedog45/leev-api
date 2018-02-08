@@ -22,11 +22,12 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "moment": "^2.20.1",
     "mongod": "^2.0.0",
     "mongoose": "^4.13.10",
     "morgan": "^1.9.0",
     "node": "^9.4.0",
-    "nodemon": "^1.14.11",
+    "nodemon": "^1.14.12",
     "npm": "^5.6.0",
     "path-to-regexp": "^2.1.0"
   },
