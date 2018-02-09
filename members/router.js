@@ -57,6 +57,7 @@ router.post('/', (req, res) => {
       });
 });
 
+//should be a patch
 router.put('/:id', (req, res)=> {
   console.log(req);
   if(!(req.params.id && req.body.id && req.params.id == req.body.id)) {

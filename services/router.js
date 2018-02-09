@@ -53,6 +53,9 @@ router.post('/', (req, res) => {
     });
 });
 
+//below should be a post request
+//'/:id/members'
+// adding single member
 router.put('/:id', (req, res) => {
   console.log('here by mistake');
   let id = req.params.id;
@@ -83,8 +86,9 @@ router.put('/:id', (req, res) => {
     });
 });
 
+//below should also be post
+//'/:id/members', adding member to service
 router.put('/many/:id', (req, res) => {
-  console.log('getting hereeeeeee');
   let serviceId = req.params.id;
   let reqMembers = req.body.members;
   const requiredFields = ['members'];
@@ -109,6 +113,7 @@ router.put('/many/:id', (req, res) => {
       });
     });
 
+//make below into patch, combine with above
 router.put('/info/:id', (req,res)=> {
   console.log('hitting the server');
   if(!(req.params.id && req.body.id && req.params.id == req.body.id)) {
@@ -129,6 +134,7 @@ router.put('/info/:id', (req,res)=> {
     .catch(err=>res.status(500).json({message: 'something went wrong'}));
 });
 
+//patch /:id/members/:member
 router.put('/:id/:member', (req, res) => {
   let id = req.params.id;
   let member= req.params.member;
@@ -156,6 +162,7 @@ router.put('/:id/:member', (req, res) => {
   .catch(err=> res.status(500).json({message: 'something went wrong'}));
 });
 
+
 router.delete('/:id', (req, res)=> {
   Service
     .findByIdAndRemove(req.params.id)
@@ -166,6 +173,7 @@ router.delete('/:id', (req, res)=> {
 });
 
   //works
+  //'/:id/members/:member'
 router.delete('/:service/:member', (req, res) => {
   let serviceId = req.params.service;
   let memberId = req.params.member;

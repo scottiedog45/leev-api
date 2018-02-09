@@ -7,3 +7,10 @@ exports.TEST_DATABASE_URL=
 exports.PORT = process.env.PORT || 8000;
 
 exports.CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
+
+//heroku environment settings
+//netflify gives free secure sservings
+//client origin is just domain
+//double check if https is needed
+//means doesn't have to pay for security certificate
+//new things out for sercurity certificates market bringing down price
