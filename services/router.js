@@ -23,7 +23,6 @@ router.get('/:id', (req, res) => {
   Service
     .findById(id)
     .then(service => res.status(201).json(service.apiRepr()))
-    .then(res => console.log(res))
     .catch(err => {
       console.log(err);
       res.status(500).json({error: 'something went wrong with single service GET'})
@@ -53,15 +52,10 @@ router.post('/', (req, res) => {
     });
 });
 
-//below should be a post request
-//'/:id/members'
 // adding single member
-router.put('/:id', (req, res) => {
-  console.log('here by mistake');
+router.post('/:id/members', (req, res) => {
   let id = req.params.id;
   let memberId = mongoose.Types.ObjectId(req.body.id);
-  console.log('something');
-  console.log(req.body);
   const requiredFields = ['id', 'leave'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -86,41 +80,10 @@ router.put('/:id', (req, res) => {
     });
 });
 
-//below should also be post
-//'/:id/members', adding member to service
-router.put('/many/:id', (req, res) => {
-  let serviceId = req.params.id;
-  let reqMembers = req.body.members;
-  const requiredFields = ['members'];
-  for (let i=0; i<requiredFields.length; i++) {
-      const field = requiredFields[i];
-      if(!(field in req.body)) {
-        const message = `Missing \`${field}\` in request body`;
-        console.error(message);
-        return res.status(400).send(message);
-      }
-    }
-    Service
-      .update({_id: serviceId},
-        {
-        members: reqMembers
-      })
-      .then(
-        service=>res.status(201).json(console.log(service)))
-      .catch(err=>{
-        console.error(err);
-        res.status(500).json({error: 'something went wrong adding this member'});
-      });
-    });
 
-//make below into patch, combine with above
-router.put('/info/:id', (req,res)=> {
-  console.log('hitting the server');
-  if(!(req.params.id && req.body.id && req.params.id == req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
+//req body must be: {field: data}
+//make sure this doesn't add extra id, use _id in Postman
+router.patch('/:id', (req,res)=> {
   const updated = {};
   const updateableFields = ['category', 'dateTime', 'members'];
   updateableFields.forEach(field=> {
@@ -134,13 +97,11 @@ router.put('/info/:id', (req,res)=> {
     .catch(err=>res.status(500).json({message: 'something went wrong'}));
 });
 
-//patch /:id/members/:member
-router.put('/:id/:member', (req, res) => {
+//patches leave
+router.patch('/:id/members/:member', (req, res) => {
   let id = req.params.id;
   let member= req.params.member;
   let leave = req.body.leave;
-  console.log(req.params);
-  console.log(req.body);
   if(!(req.params.id && req.body.id && req.params.id == req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -157,7 +118,6 @@ router.put('/:id/:member', (req, res) => {
   .updateOne(
   {_id: id, 'members._id': member},
   {$set: {'members.$.leave': leave}})
-  .then(Someres => console.log(Someres.body))
   .then(updatedMember => res.status(204).end())
   .catch(err=> res.status(500).json({message: 'something went wrong'}));
 });
@@ -174,8 +134,8 @@ router.delete('/:id', (req, res)=> {
 
   //works
   //'/:id/members/:member'
-router.delete('/:service/:member', (req, res) => {
-  let serviceId = req.params.service;
+router.delete('/:id/members/:member', (req, res) => {
+  let serviceId = req.params.id;
   let memberId = req.params.member;
   Service
     .findOne({_id: serviceId})

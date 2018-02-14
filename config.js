@@ -14,3 +14,4 @@ exports.CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 //double check if https is needed
 //means doesn't have to pay for security certificate
 //new things out for sercurity certificates market bringing down price
+// https://xenodochial-pare-c355a0.netlify.com

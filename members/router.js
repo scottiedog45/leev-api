@@ -57,14 +57,9 @@ router.post('/', (req, res) => {
       });
 });
 
-//should be a patch
-router.put('/:id', (req, res)=> {
-  console.log(req);
-  if(!(req.params.id && req.body.id && req.params.id == req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
+
+router.patch('/:id', (req, res)=> {
+  console.log('patching');
   const updated = {};
   const updateableFields = ['name', 'role', 'email', 'phone'];
   updateableFields.forEach(field=> {
@@ -74,8 +69,10 @@ router.put('/:id', (req, res)=> {
   });
   Member
     .findByIdAndUpdate(req.params.id, {$set:updated}, {new:true})
-    .then(updatedMember => res.status(204).end())
-    .catch(err=> res.status(500).json({message: 'something went wrong'}));
+
+    .catch(err=> res.status(500).json({message: 'something went wrong'}))
+    .then(
+      () => res.status(204).end());
 });
 
 router.delete('/:id', (req, res)=> {

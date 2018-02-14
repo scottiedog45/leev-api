@@ -23,7 +23,7 @@ const ServiceSchema = mongoose.Schema({
     {id: {type: mongoose.Schema.Types.ObjectId, ref: 'Member'},
     leave: {type: String}}
   ]
-});
+  });
 
 MemberSchema.methods.apiRepr = function() {
   return {
