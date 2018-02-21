@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const checkAuth = require('../middleware/middleware');
 
 const {Member, Service} = require('../models');
 
@@ -32,7 +33,7 @@ router.get('/:id/leave', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', checkAuth, (req, res) => {
   const requiredFields = ['name', 'role', 'email', 'phone'];
   for (let i=0; i< requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -58,7 +59,7 @@ router.post('/', (req, res) => {
 });
 
 
-router.patch('/:id', (req, res)=> {
+router.patch('/:id', checkAuth, (req, res)=> {
   console.log('patching');
   const updated = {};
   const updateableFields = ['name', 'role', 'email', 'phone'];

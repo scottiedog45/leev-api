@@ -12,6 +12,7 @@ const app = express();
 
 const { router: membersRouter } = require('./members/router');
 const { router: servicesRouter} = require('./services/router');
+const { router: usersRouter} = require('./users/router');
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
@@ -23,6 +24,7 @@ app.use(
 );
 app.use('/api/members/', membersRouter);
 app.use('/api/services/', servicesRouter);
+app.use('/api/users/', usersRouter);
 
 mongoose.Promise = global.Promise;
 

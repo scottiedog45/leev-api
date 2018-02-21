@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/scottiedog45/leev-api#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.1",
     "moment": "^2.20.1",
     "mongod": "^2.0.0",
     "mongoose": "^4.13.10",

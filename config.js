@@ -8,6 +8,10 @@ exports.PORT = process.env.PORT || 8000;
 
 exports.CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
+exports.JWT_KEY =  process.env.JWT_KEY || 'secretkey';
+
+
+
 //heroku environment settings
 //netflify gives free secure sservings
 //client origin is just domain

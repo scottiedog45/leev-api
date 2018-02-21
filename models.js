@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 moment().format();
 
-
 const MemberSchema = mongoose.Schema({
   name: {type: String},
   role: {type: String},
@@ -10,11 +9,14 @@ const MemberSchema = mongoose.Schema({
   phone: {type: String}
 });
 
-//no inherent reinforcing the relationship for mongoose
-//ex. try to add member that isn't in member database, should error
-//sql will bork if you try to mess w/ connected objects
-//how does mongoose enforce objectid type
-//check datetime type, could/should be date type
+const UserSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: { type: String, required: true}
+})
 
 const ServiceSchema = mongoose.Schema({
   category: {type: String},
@@ -24,6 +26,7 @@ const ServiceSchema = mongoose.Schema({
     leave: {type: String}}
   ]
   });
+
 
 MemberSchema.methods.apiRepr = function() {
   return {
@@ -44,8 +47,10 @@ ServiceSchema.methods.apiRepr = function() {
   };
 }
 
+const User = mongoose.model('users', UserSchema, 'leevUsers');
+
 const Service = mongoose.model('services', ServiceSchema, 'leevServices');
 
 const Member = mongoose.model('members', MemberSchema, 'leevMembers');
 
-module.exports = {Member, Service};
+module.exports = {Member, Service, User};
