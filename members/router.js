@@ -33,7 +33,7 @@ router.get('/:id/leave', (req, res) => {
     });
 });
 
-router.post('/', checkAuth, (req, res) => {
+router.post('/', (req, res) => {
   const requiredFields = ['name', 'role', 'email', 'phone'];
   for (let i=0; i< requiredFields.length; i++) {
     const field = requiredFields[i];
