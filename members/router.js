@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
 });
 
 
-router.patch('/:id', checkAuth, (req, res)=> {
+router.patch('/:id', (req, res)=> {
   console.log('patching');
   const updated = {};
   const updateableFields = ['name', 'role', 'email', 'phone'];
