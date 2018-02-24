@@ -4,6 +4,7 @@ const {JWT_KEY} = require('../config');
 module.exports = (req, res, next) => {
   console.log('getting here');
   try{
+    console.log(req.headers);
     const token = req.headers.authorization.split(" ")[1];
     console.log(token);
     const decoded = jwt.verify(token, JWT_KEY);
@@ -16,6 +17,5 @@ module.exports = (req, res, next) => {
   }
 };
 
-//bug, when I add the bearer <token> to the headers,
-//the message can't be found, only when it's in the body does it work
-//Works: application json as header, and no auth header
+//MAKE SURE YOU DELETE ALL OF THE EXTRA WHITESPACE IN THEHEADER
+//VALUES

@@ -95,6 +95,9 @@ router.post('/login', (req, res, next) => {
   });
 })
 
+//if they've created anything, once the user tag is on,
+//make sure all associated date is deleted before the account is Deleted
+//
 router.delete('/:userId', (req, res, next) => {
   User.remove({
     _id: req.params.userId

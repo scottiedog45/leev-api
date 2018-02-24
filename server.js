@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const moment = require('moment');
 
 const {CLIENT_ORIGIN} = require('./config');
@@ -15,7 +14,7 @@ const { router: servicesRouter} = require('./services/router');
 const { router: usersRouter} = require('./users/router');
 
 app.use(morgan('common'));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static('public'));
 app.use(
   cors({
