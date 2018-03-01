@@ -5,7 +5,7 @@ const checkAuth = require('../middleware/middleware');
 
 const {Member, Service} = require('../models');
 
-router.get('/', checkAuth, (req, res) => {
+router.get('/', (req, res) => {
   Member
     .find()
     .then(members=>{
