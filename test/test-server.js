@@ -373,3 +373,25 @@ describe('member API resource', function(){
       });
     });
   });
+
+  //finish these...
+
+// describe('USER api endpoint', function() {
+//   before(function() {
+//     return runServer(TEST_DATABASE_URL);
+//   });
+//   beforeEach(function(){
+//     return seedUserData();
+//   });
+//   afterEach(function(){
+//     return tearDownDb();
+//   });
+//   after(function(){
+//     return closeServer();
+//   });
+//   describe('USER signup endpoint', function(){
+//     it('succesfully updated db with new user', function(){
+//       const newUser = generateUserData()''
+//     })
+//   })
+// })
