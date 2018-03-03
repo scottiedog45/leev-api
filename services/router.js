@@ -5,7 +5,7 @@ const checkAuth = require('../middleware/middleware');
 
 const {Service} = require('../models');
 
-router.get('/',checkAuth, (req, res) => {
+router.get('/',(req, res) => {
   Service
     .find()
     .then(services=>{
@@ -19,7 +19,7 @@ router.get('/',checkAuth, (req, res) => {
     });
 });
 
-router.get('/:id', checkAuth, (req, res) => {
+router.get('/:id', (req, res) => {
   let id = req.params.id;
   Service
     .findById(id)
@@ -30,7 +30,7 @@ router.get('/:id', checkAuth, (req, res) => {
     });
 });
 
-router.post('/', checkAuth, (req, res) => {
+router.post('/', (req, res) => {
   const requiredFields = ['category', 'dateTime'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -54,7 +54,7 @@ router.post('/', checkAuth, (req, res) => {
 });
 
 // adding single member
-router.post('/:id/members', checkAuth, (req, res) => {
+router.post('/:id/members', (req, res) => {
   let id = req.params.id;
   let memberId = mongoose.Types.ObjectId(req.body.id);
   const requiredFields = ['id', 'leave'];
@@ -84,7 +84,7 @@ router.post('/:id/members', checkAuth, (req, res) => {
 
 //req body must be: {field: data}
 //make sure this doesn't add extra id, use _id in Postman
-router.patch('/:id', checkAuth, (req,res)=> {
+router.patch('/:id', (req,res)=> {
   const updated = {};
   const updateableFields = ['category', 'dateTime', 'members'];
   updateableFields.forEach(field=> {
@@ -99,7 +99,7 @@ router.patch('/:id', checkAuth, (req,res)=> {
 });
 
 //patches leave
-router.patch('/:id/members/:member', checkAuth, (req, res) => {
+router.patch('/:id/members/:member',(req, res) => {
   let id = req.params.id;
   let member= req.params.member;
   let leave = req.body.leave;
@@ -124,7 +124,7 @@ router.patch('/:id/members/:member', checkAuth, (req, res) => {
 });
 
 
-router.delete('/:id', checkAuth, (req, res)=> {
+router.delete('/:id',(req, res)=> {
   Service
     .findByIdAndRemove(req.params.id)
     .then(()=>{
@@ -135,7 +135,7 @@ router.delete('/:id', checkAuth, (req, res)=> {
 
   //works
   //'/:id/members/:member'
-router.delete('/:id/members/:member', checkAuth, (req, res) => {
+router.delete('/:id/members/:member', (req, res) => {
   let serviceId = req.params.id;
   let memberId = req.params.member;
   Service

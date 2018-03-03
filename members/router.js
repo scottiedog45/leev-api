@@ -5,7 +5,7 @@ const checkAuth = require('../middleware/middleware');
 
 const {Member, Service} = require('../models');
 
-router.get('/', checkAuth, (req, res) => {
+router.get('/', (req, res) => {
   Member
     .find()
     .then(members=>{
@@ -19,7 +19,7 @@ router.get('/', checkAuth, (req, res) => {
     });
 });
 
-router.get('/:id/leave', checkAuth, (req, res) => {
+router.get('/:id/leave', (req, res) => {
   let id = req.params.id;
   Service
     .find({members: {$elemMatch: {_id:id, leave: {$ne:""}}}})
@@ -33,7 +33,7 @@ router.get('/:id/leave', checkAuth, (req, res) => {
     });
 });
 
-router.post('/', checkAuth, (req, res) => {
+router.post('/',(req, res) => {
   const requiredFields = ['name', 'role', 'email', 'phone'];
   for (let i=0; i< requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -59,7 +59,7 @@ router.post('/', checkAuth, (req, res) => {
 });
 
 
-router.patch('/:id', checkAuth, (req, res)=> {
+router.patch('/:id', (req, res)=> {
   console.log('patching');
   const updated = {};
   const updateableFields = ['name', 'role', 'email', 'phone'];
@@ -76,7 +76,7 @@ router.patch('/:id', checkAuth, (req, res)=> {
       () => res.status(204).end());
 });
 
-router.delete('/:id', checkAuth, (req, res)=> {
+router.delete('/:id', (req, res)=> {
   let id = req.params.id;
   Service
     .updateMany(
