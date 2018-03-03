@@ -100,7 +100,7 @@ describe('service API', function() {
 
       return chai.request(app)
         .get('/api/services')
-  
+
         .then(function(_res) {
           let res=_res;
           res.should.have.status(200);
@@ -370,10 +370,11 @@ describe('member API resource', function(){
           })
           .then(function(res){
             res.should.have.status(203);
-            return Member.findById(member.id);
+            return Member
+            .findById(member.id);
           })
-          .then(function(_member){
-            should.not.exist(_member);
+          .then(function(_newMember){
+            should.not.exist(_newMember);
           });
       });
     });
