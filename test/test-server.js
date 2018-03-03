@@ -97,10 +97,10 @@ describe('service API', function() {
   describe('service GET endpoint', function() {
     it('should 200 on GET requests', function() {
       let res;
-      
+
       return chai.request(app)
         .get('/api/services')
-        .set('Authorization', `Bearer ${token}`)
+  
         .then(function(_res) {
           let res=_res;
           res.should.have.status(200);
