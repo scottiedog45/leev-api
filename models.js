@@ -7,7 +7,7 @@ const MemberSchema = mongoose.Schema({
   role: {type: String},
   email: {type: String},
   phone: {type: String},
-  allotedLeave: {
+  allottedLeave: {
     medical: {type: Number},
     vacation: {type: Number},
     left: {type: Number},
@@ -51,7 +51,8 @@ MemberSchema.methods.apiRepr = function() {
     role: this.role,
     email: this.email,
     phone: this.phone,
-    id: this.id
+    id: this.id,
+    allottedLeave: this.allottedLeave
   };
 }
 

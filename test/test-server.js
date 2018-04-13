@@ -233,11 +233,32 @@ function generatePhone() {
   return phones[Math.floor(Math.random()*phones.length)];
 }
 
+function generateAllottedLeave() {
+  const leave = {
+    medical: 0,
+    vacation: 0,
+    left: 0,
+    late: 0,
+    sick: 0,
+    relief: 0,
+    bereavement: 0,
+    pregnancy: 0,
+    maternity: 0,
+    military: 0,
+    jury: 0,
+    religious: 0,
+    holiday: 0,
+    voting: 0
+  };
+  return leave;
+}
+
 function generateMemberData() {
   return {
     name: generateName(),
     phone: generatePhone(),
     email: generateEmail(),
+    allottedLeave: generateAllottedLeave(),
     role: generateRole()
   }
 }
@@ -286,20 +307,22 @@ describe('member API resource', function(){
           res.body.forEach(function(member){
             member.should.be.a('object');
             member.should.include.keys(
-              'name', 'role', 'phone', 'email');
+              'name', 'role', 'phone', 'email', 'allottedLeave');
             });
             resMember = res.body[0];
             console.log(resMember);
             return Member.findById(resMember.id);
           })
           .then(function(member){
-            console.log('a;sdhfkajdsfkajdflkajds;lkfja;sd');
             console.log(member);
             console.log(resMember);
             resMember.name.should.equal(member.name);
             resMember.role.should.equal(member.role);
             resMember.phone.should.equal(member.phone);
             resMember.email.should.equal(member.email);
+            resMember.allottedLeave.should.include.keys(
+              'jury', 'late'
+            );
           });
         });
     });
@@ -314,12 +337,15 @@ describe('member API resource', function(){
             res.should.be.json;
             res.body.should.be.a('object');
             res.body.should.include.keys(
-              'name', 'email', 'role', 'phone', 'id'
+              'name', 'email', 'role', 'phone', 'id', 'allottedLeave'
             );
             res.body.name.should.equal(newMember.name);
             res.body.role.should.equal(newMember.role);
             res.body.phone.should.equal(newMember.phone);
             res.body.email.should.equal(newMember.email);
+            res.body.allottedLeave.should.include.keys(
+              'late', 'jury'
+            );
             res.body.id.should.not.be.null;
             return Member.findById(res.body.id);
           })
@@ -328,6 +354,9 @@ describe('member API resource', function(){
             member.email.should.equal(newMember.email);
             member.phone.should.equal(newMember.phone);
             member.role.should.equal(newMember.role);
+            member.allottedLeave.should.include.keys(
+              'jury', 'late'
+            );
           });
       });
     });
@@ -367,6 +396,8 @@ describe('member API resource', function(){
           .findOne()
           .then(function(_member){
             member = _member;
+            console.log(member);
+            console.log(`/api/members/${member.id}`);
             return chai.request(app)
               .delete(`/api/members/${member.id}`);
           })
@@ -375,8 +406,8 @@ describe('member API resource', function(){
             return Member
             .findById(member.id);
           })
-          .then(function(_newMember){
-            should.not.exist(_newMember);
+          .then(function(_member){
+            should.not.exist(_member);
           });
       });
     });

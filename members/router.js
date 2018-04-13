@@ -86,7 +86,6 @@ router.patch('/:id', (req, res)=> {
   });
   Member
     .findByIdAndUpdate(req.params.id, {$set:updated}, {new:true})
-
     .catch(err=> res.status(500).json({message: 'something went wrong'}))
     .then(
       () => res.status(204).end());
