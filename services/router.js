@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const checkAuth = require('../middleware/middleware');
 
 const {Service} = require('../models');
+const {Member} = require('../models');
 
 router.get('/',(req, res) => {
   Service
@@ -31,7 +32,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const requiredFields = ['category', 'dateTime'];
+  const requiredFields = ['category', 'date', 'time', 'members'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if(!(field in req.body)) {
@@ -43,7 +44,9 @@ router.post('/', (req, res) => {
   Service
     .create({
       category: req.body.category,
-      dateTime: req.body.dateTime
+      date: req.body.date,
+      time: req.body.time,
+      members: req.body.members
     })
     .then(
       service=>res.status(201).json(service.apiRepr()))
@@ -86,7 +89,7 @@ router.post('/:id/members', (req, res) => {
 //make sure this doesn't add extra id, use _id in Postman
 router.patch('/:id', (req,res)=> {
   const updated = {};
-  const updateableFields = ['category', 'dateTime', 'members'];
+  const updateableFields = ['category', 'date', 'time','members'];
   updateableFields.forEach(field=> {
     if (field in req.body) {
         updated[field]=req.body[field];

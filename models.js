@@ -6,7 +6,23 @@ const MemberSchema = mongoose.Schema({
   name: {type: String},
   role: {type: String},
   email: {type: String},
-  phone: {type: String}
+  phone: {type: String},
+  allotedLeave: {
+    medical: {type: Number},
+    vacation: {type: Number},
+    left: {type: Number},
+    late: { type: Number },
+    sick: { type: Number },
+    relief: { type: Number },
+    bereavement: { type: Number },
+    pregnancy: { type: Number },
+    maternity: {type: Number},
+    military: {type: Number},
+    jury: {type: Number},
+    religious: {type: Number},
+    holiday: {type: Number},
+    voting: {type: Number}
+  }
 });
 
 const UserSchema = mongoose.Schema({
@@ -20,7 +36,8 @@ const UserSchema = mongoose.Schema({
 
 const ServiceSchema = mongoose.Schema({
   category: {type: String},
-  dateTime: {type: Date},
+  date: {type: Date},
+  time: {type: Date},
   members: [
     {id: {type: mongoose.Schema.Types.ObjectId, ref: 'Member'},
     leave: {type: String}}
@@ -41,7 +58,8 @@ MemberSchema.methods.apiRepr = function() {
 ServiceSchema.methods.apiRepr = function() {
   return {
     category: this.category,
-    dateTime: this.dateTime,
+    date: this.date,
+    time: this.time,
     members: this.members,
     id: this.id
   };

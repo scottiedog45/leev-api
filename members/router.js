@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const checkAuth = require('../middleware/middleware');
 
+
 const {Member, Service} = require('../models');
 
 router.get('/', (req, res) => {
@@ -48,7 +49,22 @@ router.post('/',(req, res) => {
       name: req.body.name,
       role: req.body.role,
       email: req.body.email,
-      phone: req.body.phone
+      phone: req.body.phone,
+      allottedLeave: {
+        medical: 0,
+        left: 0,
+        vacation: 0,
+        late: 0,
+        sick: 0,
+        relief: 0,
+        bereavement: 0,
+        pregnancy: 0,
+        maternity: 0,
+        military: 0,
+        jury: 0,
+        religious: 0,
+        holiday: 0,
+        voting: 0}
     })
     .then(
       member=>res.status(201).json(member.apiRepr()))
@@ -62,7 +78,7 @@ router.post('/',(req, res) => {
 router.patch('/:id', (req, res)=> {
   console.log('patching');
   const updated = {};
-  const updateableFields = ['name', 'role', 'email', 'phone'];
+  const updateableFields = ['name', 'role', 'email', 'phone', 'allottedLeave'];
   updateableFields.forEach(field=> {
     if (field in req.body) {
       updated[field]=req.body[field];
