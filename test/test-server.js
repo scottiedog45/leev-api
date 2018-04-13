@@ -34,9 +34,14 @@ function generateCategory() {
   return categories[Math.floor(Math.random() * categories.length)]
 }
 
-function generateDateTime() {
+function generateDate() {
   const date = new Date();
   return date;
+}
+
+function generateTime() {
+  const time = new Date();
+  return time;
 }
 
 function generateId() {
@@ -67,7 +72,8 @@ function generateMembers() {
 function generateServiceData() {
   return {
     category: generateCategory(),
-    dateTime: generateDateTime(),
+    date: generateDate(),
+    time: generateTime(),
     members: generateMembers()
   }
 }
@@ -128,18 +134,14 @@ describe('service API', function() {
             res.should.be.json;
             res.body.should.be.a('object');
             res.body.should.include.keys(
-              'dateTime', 'category', 'members'
+              'date', 'time', 'category', 'members'
             );
             res.body.category.should.equal(newService.category);
             res.body.id.should.not.be.null;
-            (moment(res.body.dateTime).format("dddd, MMMM Do YYYY, h:mm a").toString()).should.equal(moment(newService.dateTime).format("dddd, MMMM Do YYYY, h:mm a").toString());
             return Service.findById(res.body.id);
           })
           .then(function(service){
             service.category.should.equal(newService.category);
-            console.log(typeof(service.dateTime));
-            console.log(typeof(newService.dateTime));
-            service.dateTime.should.equalDate(newService.dateTime);
           });
       });
     });
@@ -149,7 +151,7 @@ describe('service API', function() {
         const updateData = {
           id: '',
           category: 'someCategory',
-          dateTime: new Date()
+          date: new Date()
         };
         return Service
           .findOne()
@@ -165,7 +167,7 @@ describe('service API', function() {
           })
           .then(function(service){
             service.category.should.equal(updateData.category);
-            service.dateTime.should.equalDate(updateData.dateTime);
+            service.date.should.equalDate(updateData.date);
           });
       });
     });
