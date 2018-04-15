@@ -7,21 +7,21 @@ const MemberSchema = mongoose.Schema({
   role: {type: String},
   email: {type: String},
   phone: {type: String},
-  allottedLeave: {
-    medical: {type: Number},
-    vacation: {type: Number},
-    left: {type: Number},
-    late: { type: Number },
-    sick: { type: Number },
-    relief: { type: Number },
-    bereavement: { type: Number },
-    pregnancy: { type: Number },
-    maternity: {type: Number},
-    military: {type: Number},
-    jury: {type: Number},
-    religious: {type: Number},
-    holiday: {type: Number},
-    voting: {type: Number}
+  allottedLeave:{
+    medical: { type: Number, _id: false},
+    left: { type: Number, _id: false},
+    vacation: {type: Number, _id: false},
+    late: {type: Number, _id: false},
+    sick: {type: Number, _id: false},
+    relief: {type: Number, _id: false},
+    bereavement: {type: Number, _id: false},
+    pregnancy: {type: Number, _id: false},
+    maternity: {type: Number, _id: false},
+    military: {type: Number, _id: false},
+    jury: {type: Number, _id: false},
+    religious: {type: Number, _id: false},
+    holiday: {type: Number, _id: false},
+    voting: {type: Number, _id: false}
   }
 });
 

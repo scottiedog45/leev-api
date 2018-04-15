@@ -64,8 +64,8 @@ router.post('/',(req, res) => {
         jury: 0,
         religious: 0,
         holiday: 0,
-        voting: 0}
-    })
+        voting: 0
+      }})
     .then(
       member=>res.status(201).json(member.apiRepr()))
       .catch(err=>{
@@ -78,7 +78,7 @@ router.post('/',(req, res) => {
 router.patch('/:id', (req, res)=> {
   console.log('patching');
   const updated = {};
-  const updateableFields = ['name', 'role', 'email', 'phone', 'allottedLeave'];
+  const updateableFields = ['name', 'role', 'email', 'phone'];
   updateableFields.forEach(field=> {
     if (field in req.body) {
       updated[field]=req.body[field];
@@ -89,6 +89,47 @@ router.patch('/:id', (req, res)=> {
     .catch(err=> res.status(500).json({message: 'something went wrong'}))
     .then(
       () => res.status(204).end());
+});
+
+
+//patching allotted leave
+router.patch('/allottedLeave/:id', (req, res) => {
+  console.log('patching');
+  const updated = {};
+  const updateableFields = [
+    'medical',
+    'left',
+    'vacation',
+    'late',
+    'sick',
+    'relief',
+    'bereavement',
+    'pregnancy',
+    'maternity',
+    'military',
+    'jury',
+    'religious',
+    'holiday',
+    'voting'
+  ];
+  updateableFields.forEach(field=> {
+    if (field in req.body) {
+      let newField = 'allottedLeave.' + field;
+      updated[newField] = req.body[field];
+    }
+  });
+  console.log(updated);
+  Member
+    .findByIdAndUpdate(
+      req.params.id, 
+      {$set:updated}, {new:true})
+    .catch(err=>res.status(500).json({mesage: 'something went wrong'}))
+    .then(
+      (thang)=> {
+        console.log(thang);
+        res.status(204).end()
+      }
+    )
 });
 
 router.delete('/:id', (req, res)=> {
